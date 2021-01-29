@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DataBase_RehaptationModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AboutU">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Image" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+    <Property Name="Discrabtion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ContactMessage">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdatedBy" Type="Int64" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="ContactU">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int64" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UpdateBy" Type="Int64" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="Address" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Facebook" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="15" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Doctor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Patients" Relationship="Self.FK_Patient_Doctor" FromRole="Doctor" ToRole="Patient" />
+    <NavigationProperty Name="Patients1" Relationship="Self.FK_Patient_Doctor2" FromRole="Doctor" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="Patient">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Age" Type="Int32" Nullable="false" />
+    <Property Name="Gender" Type="Int32" Nullable="false" />
+    <Property Name="Weight" Type="Int32" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Phone" Type="Int32" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DoctorFK" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Doctor" Relationship="Self.FK_Patient_Doctor" FromRole="Patient" ToRole="Doctor" />
+    <NavigationProperty Name="Doctor1" Relationship="Self.FK_Patient_Doctor2" FromRole="Patient" ToRole="Doctor" />
+    <NavigationProperty Name="Sessions" Relationship="Self.FK_Sessions_Patient" FromRole="Patient" ToRole="Sessions" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DEBT" Type="Double" Nullable="false" />
+    <Property Name="NSBUD" Type="Double" Nullable="false" />
+    <Property Name="NSAUD" Type="Double" Nullable="false" />
+    <Property Name="TRFAS" Type="Double" Nullable="false" />
+    <Property Name="ADEAT" Type="Double" Nullable="false" />
+    <Property Name="PatientFK" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Patient" Relationship="Self.FK_Sessions_Patient" FromRole="Sessions" ToRole="Patient" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_Patient_Doctor">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="DoctorFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Patient_Doctor2">
+    <End Role="Doctor" Type="Self.Doctor" Multiplicity="1" />
+    <End Role="Patient" Type="Self.Patient" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doctor">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Patient">
+        <PropertyRef Name="DoctorFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Sessions_Patient">
+    <End Role="Patient" Type="Self.Patient" Multiplicity="1" />
+    <End Role="Sessions" Type="Self.Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Patient">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Sessions">
+        <PropertyRef Name="PatientFK" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DataBase_RehaptationEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AboutUs" EntityType="Self.AboutU" />
+    <EntitySet Name="ContactMessages" EntityType="Self.ContactMessage" />
+    <EntitySet Name="ContactUs" EntityType="Self.ContactU" />
+    <EntitySet Name="Doctors" EntityType="Self.Doctor" />
+    <EntitySet Name="Patients" EntityType="Self.Patient" />
+    <EntitySet Name="Sessions" EntityType="Self.Session" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_Patient_Doctor" Association="Self.FK_Patient_Doctor">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Patient" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Patient_Doctor2" Association="Self.FK_Patient_Doctor2">
+      <End Role="Doctor" EntitySet="Doctors" />
+      <End Role="Patient" EntitySet="Patients" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Sessions_Patient" Association="Self.FK_Sessions_Patient">
+      <End Role="Patient" EntitySet="Patients" />
+      <End Role="Sessions" EntitySet="Sessions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
